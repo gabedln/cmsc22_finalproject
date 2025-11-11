@@ -2,7 +2,7 @@ package product;
 
 import user.*;
 
-public class Vouchers {
+public class Vouchers { // required attributes and methods
 	private String name;
 	private Seller seller;
 	private double discount;
