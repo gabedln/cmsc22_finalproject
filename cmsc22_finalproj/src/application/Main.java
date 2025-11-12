@@ -21,7 +21,7 @@ public class Main extends Application {
 		try {
 			stage.setResizable(false);
 			BorderPane root = new BorderPane(); // initial welcome screen, prompts user to login
-			root.getStyleClass().add("border-pane");
+			root.getStyleClass().add("root-border-pane");
 			Scene scene = new Scene(root,1024,576);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setTitle("Girl, Boy, Bakla, Tomboy Store");
@@ -52,6 +52,9 @@ public class Main extends Application {
 			Hyperlink signupLink = new Hyperlink ("Sign up here.");
 			signupLink.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent arg0) {
+					SignUp signup = new SignUp(stage, scene);
+					Scene login = signup.getScene();
+					stage.setScene(login);
 					System.out.println("Sign-up Button Clicked!");
 				}
 			});
