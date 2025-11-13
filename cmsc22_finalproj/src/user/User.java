@@ -22,6 +22,7 @@ public abstract class User {
 	}
 	
 	public abstract void login(String username, String password);
+	public abstract void getPassword();
 	public abstract void viewDetails();
 	public abstract void changeDisplayName(String displayName);
 	public abstract void changeLocation(String location);

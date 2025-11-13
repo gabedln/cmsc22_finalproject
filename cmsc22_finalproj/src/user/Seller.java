@@ -16,7 +16,7 @@ public class Seller extends User{
 	}
 
 	@Override
-	public void login() {
+	public void login(String username, String password) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -28,16 +28,18 @@ public class Seller extends User{
 	}
 
 	@Override
-	public void changeDisplayName() {
+	public void changeDisplayName(String displayName) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void changeLocation() {
+	public void changeLocation(String location) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void getPassword() {}
 
 }
 
