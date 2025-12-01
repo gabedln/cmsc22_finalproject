@@ -11,41 +11,17 @@ public class Buyer extends User {
     private ArrayList<Product> cart = new ArrayList<>();
     private ArrayList<Product> wishlist = new ArrayList<>();
     private ArrayList<Product> bought = new ArrayList<>();
+    private ArrayList<Vouchers> vouchers = new ArrayList<>();
 
-    public Buyer(String firstName, String lastName, String username, String password, float balance, String location){
-        super(firstName, lastName, username, password, balance, location);
+    public Buyer(String displayName, String username, String password, float balance, String location){
+        super(displayName, username, password, balance, location);
     }
 
     @Override
     public void displayDashboard() {
-        while (true) { // loop instead of recursion
-            System.out.println("Welcome " + getUsername());
-            System.out.println("Location: " + getLocation());
-            System.out.println("\n");
 
-            System.out.println("[1] View Profile ");
-            System.out.println("[2] View Cart");
-            System.out.println("[3] View Wishlist");
-            System.out.println("[4] View Transaction History");
-            System.out.println("[5] Logout");
-
-            int choice = sc.nextInt();
-            sc.nextLine();
-
-            if(choice == 1) {
-                viewProfile();
-            } else if (choice == 2) {
-                viewCart();
-            } else if(choice == 3) {
-                viewWishlist();
-            } else if (choice == 4) {
-                viewTransactionHistory();
-            } else if (choice == 5) {
-                break; // exit dashboard loop
-            }
-        }
     }
-
+    public ArrayList<Vouchers> getVouchers() { return this.vouchers; }
     public void viewCart() {
         if (cart.isEmpty()) {
             System.out.println("Cart is empty!");
