@@ -65,10 +65,13 @@ public class SignUp {
 				} else {
 					Main.addUser(new Seller(displaynameField.getText(), usernameField.getText(), pwField.getText(), 0, locationField.getText()));
 				}
+				Main.saveData();
+				
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Confirmation");
 				alert.setContentText("New user created!");
 				alert.showAndWait();
+				
 				stage.setScene(previous);
 			}
 		});

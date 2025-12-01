@@ -17,13 +17,29 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import user.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Main extends Application {
 	private static ArrayList<User> users = new ArrayList<>();
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage stage) {
 		try {
+			Path loadPath = Paths.get("src/application/save/users.txt");
+			if(Files.exists(loadPath)) {
+				try {
+					ObjectInputStream in = new ObjectInputStream(Files.newInputStream(loadPath));
+					users = (ArrayList<User>) in.readObject();
+				} catch(IOException e) {System.out.println("Loading failed!");}
+			}
+			
 			stage.setResizable(false);
 			BorderPane root = new BorderPane(); // initial welcome screen, prompts user to login
 			root.getStyleClass().add("root-border-pane");
@@ -92,12 +108,20 @@ public class Main extends Application {
 			root.setCenter(grid);
 			stage.setScene(scene);
 			stage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+		} catch(Exception e) { e.printStackTrace(); }
+	}
+	
+	public static void saveData() {
+		Path savepath = Paths.get("src/application/save/users.txt");
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(savepath));
+			out.writeObject((ArrayList<User>)users);
+			out.close();
+		} catch(IOException e) {}
 	}
 	
 	public static void addUser(User user) { users.add(user); }
+	public static ArrayList<User> getUsers() { return users; }
 	
 	public static void main(String[] args) {
 		launch(args);
