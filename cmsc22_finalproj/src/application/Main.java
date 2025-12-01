@@ -5,17 +5,22 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import user.*;
+import java.util.ArrayList;
 
 public class Main extends Application {
+	private static ArrayList<User> users = new ArrayList<>();
 	@Override
 	public void start(Stage stage) {
 		try {
@@ -26,20 +31,32 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setTitle("Girl, Boy, Bakla, Tomboy Store");
 			
-			TextField emailField = new TextField();
-			emailField.setPromptText("email");
-			emailField.getStyleClass().add("text-field");
-			emailField.setMinWidth(255);
+			TextField usernameField = new TextField();
+			usernameField.setPromptText("username");
+			usernameField.getStyleClass().add("text-field");
+			usernameField.setMinWidth(255);
 			
 			PasswordField pwField = new PasswordField();
 			pwField.setPromptText("password");
-			emailField.getStyleClass().add("text-field");
+			usernameField.getStyleClass().add("text-field");
 			// GridPane sets password field and email field to be the same, appearance wise
 			
 			Button login = new Button("login");
 			login.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent arg0) {
-					System.out.println("Login Button Clicked!");
+					String inputUsername = usernameField.getText();
+					String inputPassword = pwField.getText();
+					for(User user : users) {
+						if(inputUsername.equals(user.getUsername()) && inputPassword.equals(user.getPassword())) {
+							WelcomeScreen welcome = new WelcomeScreen(stage, scene, user);
+							stage.setScene(welcome.getScene());
+							return;
+						}
+					}
+					Alert error = new Alert(AlertType.ERROR);
+					error.setTitle("No Account Found");
+					error.setContentText("Incorrect username or password!");
+					error.showAndWait();
 				}
 			});
 			
@@ -53,9 +70,7 @@ public class Main extends Application {
 			signupLink.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent arg0) {
 					SignUp signup = new SignUp(stage, scene);
-					Scene login = signup.getScene();
-					stage.setScene(login);
-					System.out.println("Sign-up Button Clicked!");
+					stage.setScene(signup.getScene());
 				}
 			});
 			signupLink.getStyleClass().add("signup-link");
@@ -69,7 +84,7 @@ public class Main extends Application {
 			grid.setStyle("-fx-padding: 200 20 20 20;"); // -fx-padding: top right bottom left
 			grid.setAlignment(Pos.CENTER);
 			
-			grid.addRow(0, emailField);
+			grid.addRow(0, usernameField);
 			grid.addRow(1, pwField);
 			grid.addRow(2, login);
 			grid.addRow(3, signupPrompt);
@@ -81,6 +96,8 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void addUser(User user) { users.add(user); }
 	
 	public static void main(String[] args) {
 		launch(args);
