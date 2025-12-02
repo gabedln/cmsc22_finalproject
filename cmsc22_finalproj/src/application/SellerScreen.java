@@ -4,6 +4,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -15,6 +17,15 @@ public class SellerScreen {
 	private Scene sellerScene;
 	
 	public SellerScreen(Stage stage, Seller seller) {
+		Image userIcon = new Image(getClass().getResourceAsStream("/application/images/user_icon.png"));
+		ImageView usericon = new ImageView(userIcon);
+		usericon.setFitHeight(45);
+		usericon.setFitWidth(45);
+		
+		Button userButton = new Button();
+		userButton.setGraphic(usericon);
+		userButton.setStyle("-fx-background-color: transparent; -fx-padding: 10 0 0 960;");
+		
 		Button startSelling = new Button("start selling");
 		startSelling.setMinWidth(450);
 		startSelling.getStyleClass().add("startSelling-button");
@@ -38,6 +49,8 @@ public class SellerScreen {
 			root.getStyleClass().add("sellerscreen_initial");
 			root.setBottom(button);
 		}
+		
+		root.setTop(userButton);
 	}
 	
 	public Scene getScene() { return this.sellerScene; }
