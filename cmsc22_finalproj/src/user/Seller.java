@@ -80,6 +80,18 @@ public class Seller extends User {
         }
     }
 
+    public String getDisplayName(){
+        return this.displayName;
+    }
+
+    public void changeDisplayName(String name){
+        this.displayName = name;
+    }
+
+    public void changeLocation (String location){
+        this.location = location;
+    }
+
     // Lists
     public ArrayList<Product> getProductList() { return productList; }
     public ArrayList<Product> getHiddenList() { return hiddenList; }
