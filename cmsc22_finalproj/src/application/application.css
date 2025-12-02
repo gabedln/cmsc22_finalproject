@@ -46,7 +46,7 @@
 }
 
 .buyerscreen_with_products {
-    -fx-background-image: url("images/bg.png");
+    -fx-background-image: url("images/buyerscreen.png");
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
