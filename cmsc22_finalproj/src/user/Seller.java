@@ -13,8 +13,6 @@ public class Seller extends User {
     private ArrayList<Product> hiddenList = new ArrayList<>();              // hidden products
     private ArrayList<Vouchers> voucherList = new ArrayList<>();            // vouchers offered
     private ArrayList<TransactionHistory> transactions = new ArrayList<>(); // sales logs
-    public static ArrayList<Product> storeProducts = new ArrayList<>();     // global store list
-
     private float balance;
 
     public Seller(String displayName, String username, String password, float balance, String location) {
@@ -31,24 +29,8 @@ public class Seller extends User {
 
     // Add new product through input
     public void addProduct() {
-        System.out.print("Enter Product Name: ");
-        String name = sc.nextLine();
-
-        System.out.print("Enter Category: ");
-        String category = sc.nextLine();
-
-        System.out.print("Enter Price: ");
-        float price = sc.nextFloat();
-
-        System.out.print("Enter Stock: ");
-        int stock = sc.nextInt();
-        sc.nextLine(); // clear leftover newline
-
         Product product = new Product(name, category, price, stock, this);
         productList.add(product);
-        storeProducts.add(product);
-
-        System.out.println("Product added successfully! ID: " + product.getId() + " | " + product.getName());
     }
 
     // Move visible product → hidden list
@@ -67,23 +49,8 @@ public class Seller extends User {
 
     // Create a new voucher
     public void addVoucher() {
-        System.out.print("Enter discount (%): ");
-        int discount = sc.nextInt();
-
-        System.out.print("Enter quantity: ");
-        int quantity = sc.nextInt();
-
-        System.out.print("Enter minimum purchase: ");
-        float min = sc.nextFloat();
-
-        System.out.print("Enter cap value: ");
-        float cap = sc.nextFloat();
-        sc.nextLine(); // clear trailing newline
-
         Vouchers voucher = new Vouchers(this, discount, quantity, cap, min);
         voucherList.add(voucher);
-
-        System.out.println("Voucher added successfully! Code: " + voucher.getVoucherCode());
     }
 
     // Remove an existing voucher
