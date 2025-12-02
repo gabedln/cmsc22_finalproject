@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import user.Seller;
+import user.User;
 
 public class SellerScreen {
 	
@@ -25,6 +26,12 @@ public class SellerScreen {
 		Button userButton = new Button();
 		userButton.setGraphic(usericon);
 		userButton.setStyle("-fx-background-color: transparent; -fx-padding: 10 0 0 960;");
+		userButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent arg0) {
+				UserInformation userInfo = new UserInformation(stage, sellerScene, (User)seller);
+				stage.setScene(userInfo.getScene());
+			}
+		});
 		
 		Button startSelling = new Button("start selling");
 		startSelling.setMinWidth(450);

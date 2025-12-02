@@ -52,6 +52,12 @@
     -fx-background-repeat: no-repeat;
 }
 
+.user-info{
+	-fx-background-image: url("images/user_information.png");
+	-fx-background-size: cover;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+}
 
 .product-back-button{
 	-fx-font-size: 26px;
