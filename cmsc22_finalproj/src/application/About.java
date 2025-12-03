@@ -18,7 +18,6 @@ public class About {
         this.aboutScene = new Scene(root, 1024, 576);
         this.aboutScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-     // Title
         Text title = new Text("About the Project");
         title.getStyleClass().add("welcome-text"); // keep large header
 
@@ -33,7 +32,7 @@ public class About {
         description.setWrappingWidth(800);
 
 
-        // Back button uses existing "back-button-main" style
+        // Back button 
         Button backButton = new Button("go back");
         backButton.getStyleClass().add("back-button-main");
         backButton.setOnAction(e -> stage.setScene(previous));
