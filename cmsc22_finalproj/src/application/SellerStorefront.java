@@ -13,11 +13,11 @@ import javafx.stage.Stage;
 import user.Seller;
 import user.User;
 
-public class SellerScreen {
+public class SellerStorefront {
 
     private Scene sellerScene;
 
-    public SellerScreen(Stage stage, Scene main, Seller seller) {
+    public SellerStorefront(Stage stage, Scene main, Seller seller) {
         // User icon button
         Image userIcon = new Image(getClass().getResourceAsStream("/application/images/user_icon.png"));
         ImageView usericon = new ImageView(userIcon);
