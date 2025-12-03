@@ -62,7 +62,7 @@ public class SellerStorefront {
         userButton.setStyle("-fx-background-color: transparent; -fx-padding: 5 0 0 175;");
         userButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent arg0) {
-                UserInformation userInfo = new UserInformation(stage, prevScene, (User)seller);
+                UserInformation userInfo = new UserInformation(stage, scene, (User)seller);
                 stage.setScene(userInfo.getScene());
             }
         });
@@ -76,7 +76,7 @@ public class SellerStorefront {
         voucherButton.setStyle("-fx-background-color: transparent;");
         voucherButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent arg0) {
-                ViewVoucher sellerVouchers = new ViewVoucher(stage, prevScene, seller);
+                ViewVoucher sellerVouchers = new ViewVoucher(stage, scene, seller);
                 stage.setScene(sellerVouchers.getScene());
             }
         });
@@ -88,7 +88,7 @@ public class SellerStorefront {
         transactionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent arg0) {
                 // Pass null for now, or pass seller.getSalesHistory() if you have that list later
-                TransactionScreen transScreen = new TransactionScreen(stage, prevScene, seller, null);
+                TransactionScreen transScreen = new TransactionScreen(stage, scene, seller, null);
                 stage.setScene(transScreen.getScene());
             }
         });
@@ -112,7 +112,7 @@ public class SellerStorefront {
         
         // Limit scrollbar to not reach top
         StackPane scrollWrapper = new StackPane();
-        scrollWrapper.setStyle("-fx-padding: 125 0 0 0;"); // Add top padding to prevent scrollbar from reaching top
+        scrollWrapper.setStyle("-fx-padding: 25 0 0 0;"); // Add top padding to prevent scrollbar from reaching top
 
         productBox = new VBox(25);
         productBox.setAlignment(Pos.TOP_CENTER);
@@ -267,7 +267,5 @@ public class SellerStorefront {
         }
     }
 
-    public Scene getScene() {
-        return scene;
-    }
+    public Scene getScene() { return this.scene; }
 }
