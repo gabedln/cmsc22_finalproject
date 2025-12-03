@@ -95,7 +95,8 @@ public class AddProduct {
 
         // Add product logic
         addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent arg0) {
+
+			public void handle(MouseEvent arg0) {
                 try {
                     String name = productnameField.getText().trim();
                     String category = categoryField.getValue();

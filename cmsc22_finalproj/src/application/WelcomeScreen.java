@@ -42,7 +42,7 @@ public class WelcomeScreen {
             welcomeLabel = new Text("WELCOME, SELLER " + user.getDisplayName() + "!");
             continueButton = new Button("start selling");
             continueButton.setOnAction(e -> {
-                SellerScreen sellerScreen = new SellerScreen(stage, (Seller) user);
+                SellerScreen sellerScreen = new SellerScreen(stage, previous, (Seller) user);
                 stage.setScene(sellerScreen.getScene());
             });
         }
