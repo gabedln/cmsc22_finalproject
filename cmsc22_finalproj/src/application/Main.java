@@ -68,7 +68,7 @@ public class Main extends Application {
 					String inputPassword = pwField.getText();
 					for(User user : users) {
 						if(inputUsername.equals(user.getUsername()) && inputPassword.equals(user.getPassword())) {
-							WelcomeScreen welcome = new WelcomeScreen(stage, scene, user);
+							WelcomeScreen welcome = new WelcomeScreen(stage, scene, user, getSellers());
 							stage.setScene(welcome.getScene());
 							return;
 						}
@@ -122,6 +122,16 @@ public class Main extends Application {
 			out.writeObject((ArrayList<User>)users);
 			out.close();
 		} catch(IOException e) {}
+	}
+	
+	public static ArrayList<Seller> getSellers(){
+		ArrayList<Seller> sellers = new ArrayList<>();
+		for(User u : users) {
+			if(u instanceof Seller) {
+				sellers.add((Seller)u);
+			}
+		}
+		return sellers;
 	}
 	
 

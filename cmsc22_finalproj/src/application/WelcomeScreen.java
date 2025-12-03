@@ -1,6 +1,9 @@
 package application;
 
 import user.*;
+
+import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,7 +19,7 @@ public class WelcomeScreen {
     
     private Scene welcome;
     
-    public WelcomeScreen(Stage stage, Scene previous, User user) {
+    public WelcomeScreen(Stage stage, Scene previous, User user, List<Seller> allSellers) {
         
         Button back = new Button("go back");
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -40,8 +43,8 @@ public class WelcomeScreen {
             continueButton = new Button("start shopping");
             continueButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent arg0) {
-                    BuyerScreen buyerscreen = new BuyerScreen(stage, (Buyer) user);
-                    stage.setScene(buyerscreen.getScene());
+                    ChooseSeller chooseSeller = new ChooseSeller(stage, welcome, (Buyer)user, allSellers);
+                    stage.setScene(chooseSeller.getScene());
                 }
             });
         }else {

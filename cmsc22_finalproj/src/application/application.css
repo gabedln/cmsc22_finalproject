@@ -86,6 +86,13 @@
     -fx-background-repeat: no-repeat;
 }
 
+.choose-seller{
+	-fx-background-image: url("images/buyerscreen.png");
+	-fx-background-size: cover;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+}
+
 .product-back-button{
     -fx-font-size: 26px;
     -fx-font-family: "Nine By Five NBP";
