@@ -1,24 +1,23 @@
 package application;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import user.Seller;
-import product.Vouchers; 
+import product.Vouchers;
 
 public class AddVoucher {
     private Scene addVoucher;
 
     public AddVoucher(Stage stage, Scene previous, Seller seller) {
         BorderPane root = new BorderPane();
-        root.getStyleClass().add("add-voucher"); // background style
+        root.getStyleClass().add("add-voucher");
         Scene addVoucher = new Scene(root, 1024, 576);
         addVoucher.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         this.addVoucher = addVoucher;
@@ -53,12 +52,7 @@ public class AddVoucher {
         Button back = new Button("back");
         back.setMinWidth(275);
         back.getStyleClass().add("back-button");
-        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent arg0) {
-                stage.setScene(previous);
-            }
-        });
+        back.setOnAction(e -> stage.setScene(previous));
 
         // ---------------- Listener ----------------
         ChangeListener<String> textFieldListener = (obs, oldVal, newVal) -> {
@@ -74,33 +68,44 @@ public class AddVoucher {
         minimumField.textProperty().addListener(textFieldListener);
         capField.textProperty().addListener(textFieldListener);
 
-        addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent arg0) {
-                try {
-                    int discount = Integer.parseInt(discountField.getText());
-                    int quantity = Integer.parseInt(quantityField.getText());
-                    float min = Float.parseFloat(minimumField.getText());
-                    float cap = Float.parseFloat(capField.getText());
+        // ---------------- Add Voucher Action ----------------
+        addButton.setOnAction(e -> {
+            try {
+                int discount = Integer.parseInt(discountField.getText());
+                int quantity = Integer.parseInt(quantityField.getText());
+                float min = Float.parseFloat(minimumField.getText());
+                float cap = Float.parseFloat(capField.getText());
 
-                    // Use Vouchers (plural)
-                    Vouchers voucher = new Vouchers(seller, discount, quantity, cap, min);
-                    seller.getVoucherList().add(voucher);
+                Vouchers voucher = new Vouchers(seller, discount, quantity, cap, min);
+                seller.getVoucherList().add(voucher);
 
-                    System.out.println("Voucher added successfully! Code: " + voucher.getVoucherCode());
+                // Save data
+                Main.saveData();
 
-                    // Clear fields after adding
-                    discountField.clear();
-                    quantityField.clear();
-                    minimumField.clear();
-                    capField.clear();
-                    addButton.setDisable(true);
+                // Confirmation popup
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText(null);
+                alert.setContentText("Voucher created successfully!\nCode: " + voucher.getVoucherCode());
+                alert.showAndWait();
 
-                    // Optionally return to previous scene
-                    stage.setScene(previous);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter numeric values for discount, quantity, minimum, and cap.");
-                }
+                // Clear fields
+                discountField.clear();
+                quantityField.clear();
+                minimumField.clear();
+                capField.clear();
+                addButton.setDisable(true);
+
+                // Return to ViewVoucher
+                ViewVoucher viewVoucher = new ViewVoucher(stage, previous, seller);
+                stage.setScene(viewVoucher.getScene());
+
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Invalid Input");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter numeric values for discount, quantity, minimum, and cap.");
+                alert.showAndWait();
             }
         });
 
@@ -108,8 +113,8 @@ public class AddVoucher {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setStyle("-fx-padding: 90 40 20 65;"); // top right bottom left
-        grid.setAlignment(Pos.CENTER);
+        grid.setStyle("-fx-padding: 90 40 20 65;");
+        grid.setAlignment(javafx.geometry.Pos.CENTER);
 
         grid.addRow(0, discountField);
         grid.addRow(1, quantityField);
