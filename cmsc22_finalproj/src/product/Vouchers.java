@@ -4,8 +4,6 @@ import user.Seller;
 import java.io.Serializable;
 
 public class Vouchers implements Serializable {
-	private static final long serialVersionUID = 5L;
-	
     private Seller seller;
     private static int codeCounter = 0;
     private int voucherCode;

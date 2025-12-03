@@ -37,7 +37,7 @@ public class ViewVoucher {
             ticketView.setFitHeight(180);
 
             Text codeText = new Text("Code: " + voucher.getVoucherCode());
-            Text discountText = new Text("Discount: " + voucher.getDiscount() + "%");
+            Text discountText = new Text("Discount: " + (int)(voucher.getDiscount() * 100) + "%");
             Text minText = new Text("Minimum: ₱" + voucher.getMinimum());
             Text capText = new Text("Cap: ₱" + voucher.getCap());
 

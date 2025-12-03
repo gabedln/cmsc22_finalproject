@@ -16,21 +16,21 @@ public class ChooseSeller {
 
     public ChooseSeller(Stage stage, Scene previous, Buyer buyer, List<Seller> sellers) {
         BorderPane root = new BorderPane();
-        root.getStyleClass().add("choose-seller"); // background style
+        root.getStyleClass().add("choose-seller");
 
         Scene scene = new Scene(root, 1024, 576);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         this.chooseSellerScene = scene;
 
-        // ---------------- Title ----------------
+        // Title
         Label title = new Label("CHOOSE SELLER");
-        title.getStyleClass().add("welcome-text"); // reuse big font style
+        title.getStyleClass().add("welcome-text");
 
-        // ---------------- Seller ComboBox ----------------
+        // Seller ComboBox
         ComboBox<Seller> sellerComboBox = new ComboBox<>();
         sellerComboBox.setPromptText("Select a seller");
         sellerComboBox.setMinWidth(275);
-        sellerComboBox.getStyleClass().add("product-combo-box"); // same font as category dropdown
+        sellerComboBox.getStyleClass().add("product-combo-box");
         sellerComboBox.getItems().addAll(sellers);
 
         sellerComboBox.setCellFactory(cb -> new javafx.scene.control.ListCell<>() {
@@ -40,6 +40,7 @@ public class ChooseSeller {
                 setText(empty || seller == null ? null : seller.getDisplayName() + " (@" + seller.getUsername() + ")");
             }
         });
+        
         sellerComboBox.setButtonCell(new javafx.scene.control.ListCell<>() {
             @Override
             protected void updateItem(Seller seller, boolean empty) {
@@ -47,23 +48,19 @@ public class ChooseSeller {
                 setText(empty || seller == null ? null : seller.getDisplayName() + " (@" + seller.getUsername() + ")");
             }
         });
-        
-        /*
 
-        // Redirect to storefront when a seller is chosen
+        // Redirect to BuyerStorefront
         sellerComboBox.setOnAction(e -> {
             Seller selectedSeller = sellerComboBox.getValue();
             if (selectedSeller != null) {
-                SellerStorefront storefront = new SellerStorefront(stage, scene, buyer, selectedSeller);
+                SellerStorefront storefront = new SellerStorefront(stage, scene, selectedSeller);
                 stage.setScene(storefront.getScene());
             }
         });
-        
-        */
 
-        // ---------------- Layout ----------------
+        // Layout
         VBox layout = new VBox(20, title, sellerComboBox);
-        layout.setStyle("-fx-padding: 150 40 20 40;"); // top spacing for title
+        layout.setStyle("-fx-padding: 150 40 20 40;");
         layout.setAlignment(javafx.geometry.Pos.TOP_CENTER);
 
         root.setCenter(layout);
