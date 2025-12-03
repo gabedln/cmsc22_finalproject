@@ -313,3 +313,24 @@
     -fx-padding: 0;
     -fx-cursor: hand;
 }
+
+.claim-voucher {
+    -fx-background-image: url("images/viewvoucher_background.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.voucher-text {
+    -fx-font-size: 25px; /* adjust size here */
+    -fx-font-family: "Nine By Five NBP"; 
+    -fx-fill: black;     /* text color */
+    -fx-font-weight: bold;
+}
+
+.voucher-icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
