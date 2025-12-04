@@ -32,5 +32,5 @@ public class Vouchers implements Serializable {
     public float getMinimum() { return min; }
     public float getCap() { return cap; }
     public Seller getSeller() { return seller; }
-    public float getDiscount() { return discount; } // returns decimal (e.g., 0.10 for 10%)
+    public float getDiscount() { return discount; }
 }
