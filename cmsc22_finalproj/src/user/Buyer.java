@@ -142,7 +142,7 @@ private HashMap<Seller, Float> calculateDiscountedTotals(ArrayList<Product> prod
 
         for (Vouchers voucher : voucherList) {
             if (sellerSubtotal >= voucher.getMinimum() && voucher.getQuantity() > 0 && voucher.getSeller() == seller) {
-                float discountAmount = sellerSubtotal * voucher.getDiscount();
+                float discountAmount = sellerSubtotal * (voucher.getDiscount() / 100f);
                 if (discountAmount > voucher.getCap()) discountAmount = voucher.getCap();
 
                 if (discountAmount > bestDiscount) {
