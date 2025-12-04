@@ -40,6 +40,8 @@ public class Main extends Application {
 				try {
 					ObjectInputStream in = new ObjectInputStream(Files.newInputStream(loadPath));
 					users = (ArrayList<User>) in.readObject();
+
+					product.Vouchers.getLastCode(getSellers());
 				} catch(IOException e) {System.out.println("Loading failed!");}
 			}
 			
