@@ -76,6 +76,26 @@ public class AddVoucher {
                 float min = Float.parseFloat(minimumField.getText());
                 float cap = Float.parseFloat(capField.getText());
 
+                if(discount <= 0 || discount > 100){
+                    showError("Discount should be minimum of 1% and maximum or maximum of 100%");
+                    return;
+                }
+
+                if(quantity <= 0){
+                    showError("Voucher quantity should not be less than or equal to 0");
+                    return;
+                }
+
+                if(min <=0){
+                    showError("Minimum should be greater than 0.");
+                    return;
+                }
+
+                if(cap > min){
+                    ("Poor voucher logic. Cap amount is must ideally not exceed minimum purchase amount.");
+                    return;
+                }
+
                 Vouchers voucher = new Vouchers(seller, discount, quantity, cap, min);
                 seller.getVoucherList().add(voucher);
 
