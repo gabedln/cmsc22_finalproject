@@ -18,20 +18,6 @@ public class Buyer extends User {
         super(displayName, username, password, balance, location);
     }
 
-    @Override
-    public void displayDashboard() {
-        System.out.println("\n===== BUYER DASHBOARD =====");
-        System.out.println("Username: " + getUsername());
-        System.out.println("Display Name: " + getDisplayName());
-        System.out.println("Location: " + getLocation());
-        System.out.println("Balance: ₱" + String.format("%.2f", getBalance()));
-        System.out.println("Cart Items: " + cart.size());
-        System.out.println("Wishlist Items: " + wishlist.size());
-        System.out.println("Total Transactions: " + transactions.size());
-        System.out.println("===========================\n");
-    }
-
-    // Wishlist
     public void addToWishlist(Product product) {
         if (!wishlist.contains(product)) wishlist.add(product);
     }
@@ -44,7 +30,6 @@ public class Buyer extends User {
         if (wishlist.contains(product)) cart.put(product, 1);
     }
 
-    // Cart
     public void addToCart(Product product) {
         cart.put(product, cart.getOrDefault(product, 0) + 1);
     }
@@ -77,17 +62,20 @@ public class Buyer extends User {
             int qty = entry.getValue();
             float total = p.getPrice() * qty;
 
-            System.out.println("ID: " + p.getId()
-                    + " | Name: " + p.getName()
-                    + " | Qty: " + qty
-                    + " | Price each: ₱" + p.getPrice()
-                    + " | Total: ₱" + total);
-
             overallTotal += total;
         }
-        System.out.println("-----------------------------------");
-        System.out.println("Overall total: ₱" + overallTotal);
     }
+
+    /*Buy logic:
+    1. Checks if all products to buy are in stock.
+    2. Groups all products according to the seller.
+    3. Computes subtotal of products per seller depending if they opted to apply best vouchers or not.
+    4. Find the best voucher that meets requirements. Reduce voucher quantity.
+    5. Subtract the voucher deal from the subtotal if voucher is to be applied. Else, return raw subtotal.
+    6. Calculate full total and check if user has sufficient balance.
+    7. Update buyer and seller's balance, and products' stocks.
+    8. Clear cart.
+    */
 
     public boolean buy(ArrayList<Product> products, boolean applyVouchers) {
     if (!checkStock(products)) {
@@ -203,28 +191,6 @@ private boolean finalizeCheckout(float grandTotal, HashMap<Seller, Float> seller
     return true;
 }
 
-
-    // Transaction History
-    public void viewTransactionHistory() {
-        System.out.println(getUsername() + "'s Transaction History:");
-        if (transactions.isEmpty()) {
-            System.out.println("No recorded transactions yet.");
-            return;
-        }
-
-        int totalItems = 0;
-        float totalSpent = 0f;
-        for (TransactionHistory th : transactions) {
-            System.out.println("ID: " + th.getProduct().getId()
-                    + " | Name: " + th.getProduct().getName()
-                    + " | Price: ₱" + th.getProduct().getPrice());
-            totalItems += th.getQuantity();
-            totalSpent += th.getTotalCost();
-        }
-        System.out.println("-----------------------------------");
-        System.out.println("Total items bought: " + totalItems);
-        System.out.println("Total amount spent: ₱" + totalSpent);
-    }
 
     // Getters for collections
     public ArrayList<Product> getWishlist() { return wishlist; }
