@@ -24,7 +24,6 @@ public class UserInformation {
         userInfoScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         this.userInfoScene = userInfoScene;
 
-        // ---------------- Values Only ----------------
         Label displayNameValue = new Label(user.getDisplayName());
         Label usernameValue = new Label("@" + user.getUsername());
         Label locationValue = new Label(user.getLocation());
@@ -42,7 +41,6 @@ public class UserInformation {
         accountTypeValue.getStyleClass().add("user-info-text");
         balanceValue.getStyleClass().add("user-info-text");
 
-        // ---------------- Edit Icons ----------------
         Image editIcon = new Image(getClass().getResourceAsStream("/application/images/edit_icon.png"));
         ImageView editNameIcon = new ImageView(editIcon);
         editNameIcon.setFitHeight(45);
@@ -68,12 +66,11 @@ public class UserInformation {
         logout.getStyleClass().add("log-out");
         logout.setMinWidth(190);
         
-        // ---------------- Layout ----------------
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER_LEFT);
         grid.setVgap(10);
         grid.setHgap(20);
-        grid.setStyle("-fx-padding: 205 0 0 250;"); // aligns values with background labels
+        grid.setStyle("-fx-padding: 205 0 0 250;"); 
 
         grid.add(displayNameValue, 0, 0);
         grid.add(editNameButton, 1, 0);
@@ -93,7 +90,6 @@ public class UserInformation {
         back.setOnAction(e -> stage.setScene(previous));
         back.setMinWidth(190);
 
-        // ---------------- Edit Actions ----------------
         editNameButton.setOnAction(e -> {
             TextField nameField = new TextField();
             nameField.setPromptText("Enter new display name");
